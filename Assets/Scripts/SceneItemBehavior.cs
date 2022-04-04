@@ -12,9 +12,11 @@ public class SceneItemBehavior : MonoBehaviour
     {
         ADD_TO_INVENTORY,
         OPEN_MENU
+        //TODO : action d'utilisation de l'objet
     }
 
     public SceneItemActions action;
+    public InventoryItem item;
 
     /// <summary>
     /// Effectue une action si l'on a cliqué sur l'objet
@@ -29,7 +31,7 @@ public class SceneItemBehavior : MonoBehaviour
         switch(action)
         {
             case SceneItemActions.ADD_TO_INVENTORY:
-                //TODO : implémentation de l'inventaire
+                Constants.GetInventoryManager().AddItemToInventory(item);
                 Destroy(gameObject);
                 break;
 
@@ -37,6 +39,8 @@ public class SceneItemBehavior : MonoBehaviour
                 //TODO : implémentation des menus contextuels
                 Debug.Log("clic sur objet");
                 break;
+
+            //TODO : possiblité d'avoir plusieurs actions
         }
     }
 }
