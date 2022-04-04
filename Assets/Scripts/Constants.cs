@@ -7,6 +7,11 @@ public static class Constants
 
     public static int NumberOfSlots = 10;
 
+    public enum ItemIdentifiers
+    {
+        DEBUG_USBDRIVE
+    }
+
     public static InventoryManager GetInventoryManager()
     {
         return GameObject.FindGameObjectWithTag(InventoryPanelTag).GetComponent<InventoryManager>();
