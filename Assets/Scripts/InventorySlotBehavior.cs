@@ -11,6 +11,7 @@ public class InventorySlotBehavior : MonoBehaviour
 
     Color notSelectedColor = new Color(0.6f, 0.6f, 0.6f);
     Color selectedColor = new Color(1f, 1f, 1f);
+    Color emptySlotColor = new Color(1f, 1f, 1f, 0f);
 
     void Start()
     {
@@ -23,15 +24,18 @@ public class InventorySlotBehavior : MonoBehaviour
     /// </summary>
     void FixedUpdate()
     {
-        btn.image.sprite = (item != null)
-            ? item.sprite
-            : null;
-
-        btn.image.color = isSelected
-            ? selectedColor
-            : notSelectedColor;
-
-        //TODO : ne rien afficher si l'emplacement est vide
+        if (item != null)
+        {
+            btn.image.sprite = item.sprite;
+            btn.image.color = (isSelected)
+                ? selectedColor
+                : notSelectedColor;
+        }
+        else
+        {
+            btn.image.sprite = null;
+            btn.image.color = emptySlotColor;
+        }
     }
 
     public void Unselect()
@@ -41,7 +45,7 @@ public class InventorySlotBehavior : MonoBehaviour
 
     void SetItem()
     {
-        //TODO : rendre impossible la sélection si l'emplacement est vide
-        isSelected = Constants.GetInventoryManager().SetCurrentItem(item, slotID);
+        if(item != null)
+            isSelected = Constants.GetInventoryManager().SetCurrentItem(item, slotID);
     }
 }
