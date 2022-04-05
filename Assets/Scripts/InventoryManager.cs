@@ -43,6 +43,14 @@ public class InventoryManager : MonoBehaviour
         //TODO : gérer le cas où l'inventaire est plein
     }
 
+    public void RemoveUsedItemFromInventory()
+    {
+        GetSortedSlots()[currentItem.slot].item = null;
+
+        UnselectAllButtons();
+        currentItem = (null, -1);
+    }
+
     /// <summary>
     /// Définit l'objet tenu. Si l'on clique sur le même emplacement alors que l'on tient déjà l'objet, alors il est retiré.
     /// </summary>

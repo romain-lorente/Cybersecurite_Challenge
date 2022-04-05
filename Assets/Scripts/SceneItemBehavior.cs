@@ -5,18 +5,19 @@ using UnityEngine;
 /// </summary>
 public class SceneItemBehavior : MonoBehaviour
 {
-    /// <summary>
-    /// Enum des actions possibles lorsqu'on clique sur l'objet
-    /// </summary>
-    public enum SceneItemActions
-    {
-        ADD_TO_INVENTORY,
-        OPEN_MENU
-        //TODO : action d'utilisation de l'objet
-    }
+    public bool isCollectableItem;
+    public bool hasContextualMenu;
+    public bool hasUsableItemInteraction;
 
-    public SceneItemActions action;
-    public InventoryItem item;
+    public InventoryItem itemToCollect;
+    public InventoryItem itemToUse;
+
+    InventoryManager mgr;
+
+    void Start()
+    {
+        mgr = Constants.GetInventoryManager();
+    }
 
     /// <summary>
     /// Effectue une action si l'on a cliqué sur l'objet
@@ -28,19 +29,26 @@ public class SceneItemBehavior : MonoBehaviour
 
     void DoOnClickAction()
     {
-        switch(action)
+        if(hasUsableItemInteraction)
         {
-            case SceneItemActions.ADD_TO_INVENTORY:
-                Constants.GetInventoryManager().AddItemToInventory(item);
-                Destroy(gameObject);
-                break;
+            InventoryItem currentItem = mgr.GetCurrentItem();
 
-            case SceneItemActions.OPEN_MENU:
-                //TODO : implémentation des menus contextuels
-                Debug.Log("clic sur objet");
-                break;
-
-            //TODO : possiblité d'avoir plusieurs actions
+            if (currentItem != null && itemToUse != null && currentItem.itemIdentifier == itemToUse.itemIdentifier)
+            {
+                //TODO : action après avoir utilisé l'objet
+                mgr.RemoveUsedItemFromInventory();
+                itemToUse = null;
+            }
+        }
+        else if(hasContextualMenu)
+        {
+            //TODO : ouverture d'un menu
+            Debug.Log("ouverture menu");
+        }
+        else if(isCollectableItem)
+        {
+            mgr.AddItemToInventory(itemToCollect);
+            Destroy(gameObject);
         }
     }
 }
