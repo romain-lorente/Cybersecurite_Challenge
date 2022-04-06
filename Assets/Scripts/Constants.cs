@@ -6,6 +6,7 @@ public static class Constants
     public static string InventorySlotTag = "InvSlot";
 
     public static int NumberOfSlots = 10;
+    public static float CursorOffset = 0.05f;
 
     public enum ItemIdentifiers
     {
