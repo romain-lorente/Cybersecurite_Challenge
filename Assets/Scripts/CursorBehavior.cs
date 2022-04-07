@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class CursorBehavior : MonoBehaviour
 {
@@ -10,16 +11,18 @@ public class CursorBehavior : MonoBehaviour
 
     void SetSprite()
     {
-        SpriteRenderer renderer = GetComponent<SpriteRenderer>();
+        Image image = GetComponent<Image>();
         InventoryItem item = Constants.GetInventoryManager().GetCurrentItem();
 
         if (item != null)
         {
-            renderer.sprite = item.sprite;
+            image.sprite = item.sprite;
+            image.color = new Color(1f, 1f, 1f, 1f);
         }
         else
         {
-            renderer.sprite = null;
+            image.sprite = null;
+            image.color = new Color(1f, 1f, 1f, 0f);
         }
     }
 
