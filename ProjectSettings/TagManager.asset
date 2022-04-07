@@ -6,6 +6,8 @@ TagManager:
   tags:
   - InvPanel
   - InvSlot
+  - ObjectiveText
+  - ObjectivePanel
   layers:
   - Default
   - TransparentFX
