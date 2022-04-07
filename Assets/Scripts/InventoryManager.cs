@@ -6,11 +6,6 @@ public class InventoryManager : MonoBehaviour
 {
     (InventoryItem item, int slot) currentItem = (null, -1);
 
-    void Update()
-    {
-        
-    }
-
     InventorySlotBehavior[] GetSortedSlots()
     {
         List<GameObject> slotObjects = GameObject.FindGameObjectsWithTag(Constants.InventorySlotTag).ToList();

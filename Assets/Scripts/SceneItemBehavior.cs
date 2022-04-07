@@ -8,15 +8,19 @@ public class SceneItemBehavior : MonoBehaviour
     public bool isCollectableItem;
     public bool hasContextualMenu;
     public bool hasUsableItemInteraction;
+    public bool triggersProgress;
+    public int progressNeededToTrigger; //Le compteur inclus dans ObjectiveManager doit être égal à ce nombre pour déclencher la progression
 
     public InventoryItem itemToCollect;
     public InventoryItem itemToUse;
 
     InventoryManager mgr;
+    ObjectiveManager objMgr;
 
     void Start()
     {
         mgr = Constants.GetInventoryManager();
+        objMgr = Constants.GetObjectiveManager();
     }
 
     /// <summary>
@@ -24,10 +28,13 @@ public class SceneItemBehavior : MonoBehaviour
     /// </summary>
     void OnMouseDown()
     {
-        DoOnClickAction();
+        if(DoOnClickAction() && triggersProgress && progressNeededToTrigger == objMgr.GetProgress())
+        {
+            objMgr.IncrementProgressCounter();
+        }
     }
 
-    void DoOnClickAction()
+    bool DoOnClickAction()
     {
         if(hasUsableItemInteraction)
         {
@@ -38,6 +45,8 @@ public class SceneItemBehavior : MonoBehaviour
                 //TODO : action après avoir utilisé l'objet
                 mgr.RemoveUsedItemFromInventory();
                 itemToUse = null;
+
+                return true;
             }
         }
         else if(hasContextualMenu)
@@ -49,6 +58,10 @@ public class SceneItemBehavior : MonoBehaviour
         {
             mgr.AddItemToInventory(itemToCollect);
             Destroy(gameObject);
+
+            return true;
         }
+
+        return false;
     }
 }
