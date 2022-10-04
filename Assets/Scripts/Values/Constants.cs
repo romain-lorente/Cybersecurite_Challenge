@@ -14,7 +14,7 @@ public static class Constants
 
     public enum ItemIdentifiers
     {
-        DEBUG_USBDRIVE
+        DEBUG_USBDRIVE,
     }
 
     public static InventoryManager GetInventoryManager()
@@ -25,5 +25,10 @@ public static class Constants
     public static ObjectiveManager GetObjectiveManager()
     {
         return GameObject.FindGameObjectWithTag(ObjectivePanelTag).GetComponent<ObjectiveManager>();
+    }
+
+    public static NavigationManager GetNavigationManager()
+    {
+        return GameObject.FindGameObjectWithTag(ObjectivePanelTag).GetComponent<NavigationManager>();
     }
 }
