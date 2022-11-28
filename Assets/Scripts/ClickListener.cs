@@ -1,7 +1,10 @@
+using UnityEngine.EventSystems;
+
 public class ClickListener : BaseListener
 {
     void OnMouseDown()
     {
-        ExecuteAction();
+        if(!EventSystem.current.IsPointerOverGameObject())
+            ExecuteAction();
     }
 }

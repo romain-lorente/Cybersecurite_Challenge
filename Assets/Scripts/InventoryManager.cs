@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class InventoryManager : MonoBehaviour
 {
+    public GameObject inventoryFullPanel;
     (InventoryItem item, int slot) currentItem = (null, -1);
 
     InventorySlotBehavior[] GetSortedSlots()
@@ -24,18 +25,18 @@ public class InventoryManager : MonoBehaviour
         return slots;
     }
 
-    public void AddItemToInventory(InventoryItem i)
+    public bool AddItemToInventory(InventoryItem i)
     {
         foreach (InventorySlotBehavior slot in GetSortedSlots())
         {
             if(slot.item == null)
             {
                 slot.item = i;
-                break;
+                return true;
             }
         }
 
-        //TODO : gérer le cas où l'inventaire est plein
+        return false;
     }
 
     public void RemoveUsedItemFromInventory()

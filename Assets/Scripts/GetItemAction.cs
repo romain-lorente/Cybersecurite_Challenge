@@ -1,3 +1,6 @@
+using System.Linq;
+using UnityEngine;
+
 public class GetItemAction : AbsAction
 {
     public InventoryItem itemToCollect;
@@ -11,9 +14,17 @@ public class GetItemAction : AbsAction
 
     public override bool Execute()
     {
-        mgr.AddItemToInventory(itemToCollect);
-        Destroy(gameObject);
+        bool success = mgr.AddItemToInventory(itemToCollect);
+        if(success)
+        {
+            Destroy(gameObject);
+        }
+        else
+        {
+            GameObject panel = Constants.GetInventoryManager().inventoryFullPanel;
+            panel.SetActive(true);
+        }
 
-        return true;
+        return success;
     }
 }
