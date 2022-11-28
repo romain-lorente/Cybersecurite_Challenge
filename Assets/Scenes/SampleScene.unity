@@ -683,6 +683,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   destinationPoint: {fileID: 766160805}
   showWithCurrentNavId: 0
+  progressNeeded: 2
 --- !u!114 &419617168
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3294,6 +3295,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   destinationPoint: {fileID: 898416621}
   showWithCurrentNavId: 1
+  progressNeeded: 0
 --- !u!114 &1920314815
 MonoBehaviour:
   m_ObjectHideFlags: 0
