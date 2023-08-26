@@ -1,10 +1,26 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class InventoryManager : MonoBehaviour
 {
+    public GameObject inventoryFullPanel;
     (InventoryItem item, int slot) currentItem = (null, -1);
+    Text itemDescText;
+
+    void Start()
+    {
+        itemDescText = GameObject.FindGameObjectWithTag(Constants.ItemDescriptionTextTag).GetComponent<Text>();
+        itemDescText.text = Constants.text_defaultItemDescription;
+    }
+
+    void Update()
+    {
+        itemDescText.text = currentItem.item != null
+            ? currentItem.item.description
+            : Constants.text_defaultItemDescription;
+    }
 
     InventorySlotBehavior[] GetSortedSlots()
     {
@@ -24,18 +40,18 @@ public class InventoryManager : MonoBehaviour
         return slots;
     }
 
-    public void AddItemToInventory(InventoryItem i)
+    public bool AddItemToInventory(InventoryItem i)
     {
         foreach (InventorySlotBehavior slot in GetSortedSlots())
         {
             if(slot.item == null)
             {
                 slot.item = i;
-                break;
+                return true;
             }
         }
 
-        //TODO : gérer le cas où l'inventaire est plein
+        return false;
     }
 
     public void RemoveUsedItemFromInventory()
@@ -51,7 +67,7 @@ public class InventoryManager : MonoBehaviour
     /// </summary>
     /// <param name="i">Objet</param>
     /// <param name="s">Emplacement</param>
-    /// <returns>True si l'objet était déjà sélectionné, sinon false</returns>
+    /// <returns>True si l'objet est sélectionné avec succès, sinon false</returns>
     public bool SetCurrentItem(InventoryItem i, int s)
     {
         UnselectAllButtons();

@@ -5,7 +5,7 @@ public class ModalButtonAction : AbsAction
 {
     public AbsAction nextAction;
     public bool disablesModal; //Si true, désactive de manière définitive la modale une fois l'action effectuée
-    public bool disablesSelf; //Si true, désactive le bouton lié à cette action une fois l'action effectuée
+    public bool disablesThisButton; //Si true, désactive le bouton lié à cette action une fois l'action effectuée
     public bool closesModal = true; //Si true, ferme la fenêtre après l'exécution de l'action
 
     private void Start()
@@ -29,7 +29,7 @@ public class ModalButtonAction : AbsAction
             return false;
         }
 
-        if (disablesSelf)
+        if (disablesThisButton)
             btn.interactable = false;
 
         if (disablesModal)
